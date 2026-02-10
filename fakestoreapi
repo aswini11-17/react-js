@@ -1,0 +1,61 @@
+import React, { useEffect, useState } from 'react'
+
+
+function App() {
+  const [product,setProduct]=useState([])
+  useEffect(()=>{
+    fetch('https://fakestoreapi.com/products')
+            .then(res=>res.json())            
+            .then((data)=>setProduct(data))
+  },[])
+  return (
+      <div style={Styles.Container}>
+        {product.map((Display)=>(
+          <div key={Display.id} style={Styles.Card}>
+            <img src={Display.image} alt="" style={Styles.img} />
+            <p><b>Price:</b>{Display.price}</p>
+            <p style={{fontSize:"14px"}}><b>Category:</b>{Display.category}</p>
+            <p style={{fontSize:"14px"}}><b>Description:</b>{Display.description}</p>
+          </div>
+        ))}
+        
+      </div>
+  )
+}
+
+const Styles = {
+  Container: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "25px",
+    justifyContent: "center",
+    padding: "40px",
+    backgroundColor: "#f9f9f9"
+  },
+  Card: {
+    width: "280px",
+    backgroundColor: "#fff",
+    borderRadius: "12px",
+    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+    padding: "20px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+    transition: "transform 0.2s",
+  },
+  img: {
+    width: "100%",
+    height: "200px",      
+    objectFit: "contain", 
+    marginBottom: "15px"
+  },
+  text: {
+    margin: "5px 0",
+    fontSize: "14px",
+    color: "#333"
+  }
+}
+
+
+export default App
